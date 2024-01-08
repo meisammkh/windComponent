@@ -13,11 +13,22 @@ class Program
         double windDirectionRad = Math.PI * windDirection / 180;
         double runwayDirectionRad = Math.PI * runwayDirection / 180;
 
-        // Calculate wind components
-        double headwind = windSpeed * Math.Cos(windDirectionRad - runwayDirectionRad);
-        double crosswind = windSpeed * Math.Sin(windDirectionRad - runwayDirectionRad);
+        // Calculate angle difference between wind and runway
+        double angleDifference = windDirectionRad - runwayDirectionRad;
 
-        Console.WriteLine($"Headwind component: {headwind:F2} knots");
-        Console.WriteLine($"Crosswind component: {crosswind:F2} knots");
+        // Adjust the angle to be between -pi and pi
+        while (angleDifference > Math.PI)
+        {
+            angleDifference -= 2 * Math.PI;
+        }
+        while (angleDifference < -Math.PI)
+        {
+            angleDifference += 2 * Math.PI;
+        }
+
+        // Calculate wind component along runway direction
+        double headTailWind = windSpeed * Math.Cos(angleDifference);
+
+        Console.WriteLine($"Head/Tailwind component: {headTailWind:F2} knots");
     }
 }
