@@ -1,0 +1,23 @@
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Example input values
+        double windSpeed = 20;  // Wind speed in knots
+        double windDirection = 270;  // Wind direction in degrees (0-360)
+        double runwayDirection = 260;  // Runway direction in degrees (0-360)
+
+        // Convert angles to radians
+        double windDirectionRad = Math.PI * windDirection / 180;
+        double runwayDirectionRad = Math.PI * runwayDirection / 180;
+
+        // Calculate wind components
+        double headwind = windSpeed * Math.Cos(windDirectionRad - runwayDirectionRad);
+        double crosswind = windSpeed * Math.Sin(windDirectionRad - runwayDirectionRad);
+
+        Console.WriteLine($"Headwind component: {headwind:F2} knots");
+        Console.WriteLine($"Crosswind component: {crosswind:F2} knots");
+    }
+}
